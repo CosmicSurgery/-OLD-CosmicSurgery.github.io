@@ -1,0 +1,88 @@
+<html>
+    <head>
+      <link rel="stylesheet" href="Styles/artmash-style.css">
+    </head>
+
+    <body>
+        <a href='index.html'>Back</a><br>
+
+        <div class='art-pair'>
+            <figure class='fig'>
+                <img src='Pictures/Anna_Drawing_1.jpg' class='fig-img'>
+                <figcaption>Drawing A</figcaption>
+            </figure>
+            <figure class='fig'>
+                <img src='Pictures/Miles_Drawing_1.jpg' class='fig-img'>
+                <figcaption>Drawing B</figcaption>
+            </figure>
+        </div>
+        <form class='art-form' >
+            <h2>Which drawing is better?</h2>
+            <div class='slider-label-container'>
+                <h1>A</h1>
+                <h1>B</h1>
+            </div>
+            <div class="slidecontainer">
+                <input type="range" min="0" max="100" value="50" class="slider" id="myRange">
+            </div>
+            <h2>How much would you pay for each work?</h2>
+            <div class='art-value-container'>
+                <label for='Price-A'>I would totally pay $
+                    <input type="number" min='-100' step='0.01' max='1000000' value='00.00' id='price-A'>
+                    for art A
+                </label>
+                <label for='Price-B'>and $
+                    <input type="number" min='-100' step='0.01' max='1000000' value='00.00' id='price-B'>
+                    for art B :)
+                </label>
+            </div>
+            <h2>How old do you think each artist is?</h2>
+            <div class='artist-age-container'>
+                <label for='age-A'>I think artist A is
+                    <input type="number" min='4' max='100' value='5' id='age-A'>
+                </label>
+                <label for='age-B'>and artist B is 
+                    <input type="number" min='4' max='100' value='5' id='age-B'>
+                    years old 
+                </label>
+            </div>
+            <h2>Additional Comments: </h2>
+            <div class='textarea-container'>
+                <textarea id='comments' name='comments' rows='4' cols='50'>Constructive compliments go here</textarea>
+            </div>
+            <button id='btn'>Submit</button>
+            <div id='msg'>
+                <pre></pre>
+            </div>
+        </form>
+        <script>
+            let reviews = [];
+            const addReview = (ev)=>{
+                ev.preventDefault();        // to stop the form submitting
+                let review = {
+                    id: Date.now(),
+                    ratingA: document.getElementById('myRange').max - document.getElementById('myRange').value,
+                    ratingB: document.getElementById('myRange').value,
+                    payA: document.getElementById('price-A').value,
+                    payB: document.getElementById('price-B').value,
+                    ageA: document.getElementById('age-A').value,
+                    ageB: document.getElementById('age-B').value,
+                    comments: document.getElementById('comments').value
+                }
+                reviews.push(review);
+                document.forms[0].reset(); // to clear the form for the next entries
+
+                // for display purposes
+                console.warn('added' , {reviews} );
+                let pre = document.querySelector('#msg pre');
+                pre.textContent = '\n' + JSON.stringify(reviews, '\t', 2);
+
+            }
+            document.addEventListener('DOMContentLoaded', ()=>{
+                document.getElementById('btn').addEventListener('click', addReview);
+            });
+        </script>
+            
+    </body>
+
+</html>
