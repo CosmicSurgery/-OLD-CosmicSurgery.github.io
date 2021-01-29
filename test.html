@@ -1,0 +1,29 @@
+<form action="">
+    <input id="test" type="number">
+    <button id='btn' type="submit">Submit</button>
+</form>
+<div id='debug'>
+    <h1></h1>
+</div>
+
+<script>
+    let reviews = [];
+    const addReview = (ev)=>{
+        ev.preventDefault();
+        let review = {
+            id:Date.now(),
+            testval: document.getElementById('test').value
+        }
+        reviews.push(review);
+        document.forms[0].reset();
+
+        console.warn('added' , {reviews} );
+        let pre = document.querySelector('#debug h1');
+        pre.textContent = 'Hello World'
+        localStorage.setItem("review", JSON.stringify(reviews));
+    }
+    document.addEventListener('DOMContentLoaded', ()=>{
+        document.getElementById('btn').addEventListener('click', addReview);
+
+    });
+</script>
